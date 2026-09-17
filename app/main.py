@@ -1,24 +1,15 @@
-from contextlib import asynccontextmanager
 from uuid import UUID
 
 from fastapi import FastAPI, HTTPException, status, Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.database import Base, engine, get_db
+from app.database import get_db
 from app.db_models import ReleaseRecord
 from app.models import Release, ReleaseCreate
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    Base.metadata.create_all(bind=engine)
-    yield
-
 app = FastAPI(
-    title="Secureship API",
-    description="Release tracking API for the Secureship project",
-    version="0.2.0",
-    lifespan=lifespan
+    title="Secureship API"
 )
 
 @app.get("/health")

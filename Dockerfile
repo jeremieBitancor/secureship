@@ -13,6 +13,8 @@ RUN pip install --no-cache-dir --upgrade pipi \
 RUN addgroup --system secureship \ 
     && adduser --system --ingroup secureship secureship
 
+COPY --chown=secureship:secureship ./alembic.ini ./alembic.ini
+COPY --chown=secureship:secureship ./migrations ./migrations
 COPY --chown=secureship:secureship ./app ./app
 
 USER secureship
