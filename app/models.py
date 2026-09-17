@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Literal
 from uuid import UUID
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 class ReleaseCreate(BaseModel):
     version: str = Field(min_length=1, examples=["1.0.0"])
@@ -10,5 +10,7 @@ class ReleaseCreate(BaseModel):
     commit_sha: str = Field(min_length=7, max_length=40)
 
 class Release(ReleaseCreate):
+    model_config = ConfigDict(from_attributes=True)
+    
     id: UUID
     created_at: datetime
